@@ -1,3 +1,8 @@
+/*
+ArrayParadigm/Kevin Quinn
+04/27/2023 12:07AM CST
+ */
+
 package perfection;
 
 public class MudRoom {
