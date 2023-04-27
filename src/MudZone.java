@@ -32,5 +32,22 @@ public class MudZone {
     public MudRoom getStartingRoom() {
         return rooms.get(0);
     }
+    public MudRoom getRoomById(int id) {
+        for (MudRoom room : rooms) {
+            if (room.getNumber() == id) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public MudRoom findRoom(String name) {
+        for (MudRoom room : rooms) {
+            if (room.getName().equalsIgnoreCase(name)) {
+                return room;
+            }
+        }
+        return null;
+    }
 
 }

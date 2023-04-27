@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class MudServer {
     private ServerSocket serverSocket;
-    private MudWorld mudWorld;
+    private perfection.MudWorld mudWorld;
 
     public MudServer(int port) {
         try {
@@ -32,11 +32,32 @@ public class MudServer {
     }
 
     public perfection.pChar loadpChar(String name) {
-        // Load pChar file and create pChar object
-        perfection.pChar pChar = new perfection.pChar();
-        // ...
-        return pChar;
+        perfection.pChar character = new perfection.pChar();
+        try {
+            File file = new File(name + ".txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            while (line != null) {
+                String[] parts = line.split(":");
+                if (parts[0].equals("name")) {
+                    character.setName(parts[1]);
+                } else if (parts[0].equals("hp")) {
+                    character.setHp(Integer.parseInt(parts[1]));
+                } else if (parts[0].equals("energy")) {
+                    character.setEnergy(Integer.parseInt(parts[1]));
+                } else if (parts[0].equals("lf")) {
+                    character.setLf(Integer.parseInt(parts[1]));
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("Error loading character file: " + e.getMessage());
+        }
+        System.out.println(character);
+        return character;
     }
+
 
 
 
