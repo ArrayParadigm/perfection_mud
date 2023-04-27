@@ -157,7 +157,7 @@ public class MudWorld {
             case "move":
                 return processMoveCommand(tokens, sender);
             case "score":
-                return processScoreCommand(sender);
+                return processScoreCommand();
             // add more cases for other commands
             default:
                 return "Unknown command: " + commandName;
@@ -189,7 +189,7 @@ public class MudWorld {
 
     private String processScoreCommand() {
         // Get the current player's character file
-        Character playerChar = currentPlayer.getCharacter();
+        perfection.pChar playerChar = currentPlayer.getCharacter();
 
         // Build a string with the character's information
         StringBuilder scoreBuilder = new StringBuilder();
