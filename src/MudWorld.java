@@ -22,7 +22,7 @@ import java.util.Map;
 public class MudWorld {
 
     private Map<String, MudClientHandler> clients = new HashMap<>();
-    private Map<String, Character> characters;
+    private Map<String, pChar> characters;
 //    private Map<String, MudZone> zones = new HashMap<>();
     private List<MudZone> zones;
 
@@ -86,36 +86,36 @@ public class MudWorld {
                     MudRoom room = new MudRoom(roomNum, roomName, roomDesc);
                     zone.addRoom(room);
                 }
-                zones.put(zoneName, zone);
+                zones.add(zone);
             }
         } catch (IOException e) {
             System.err.println("Error loading zones: " + e.getMessage());
         }
     }
 
-    public Character loadCharacter(String name, String password) {
+    public pChar loadpChar(String name, String password) {
         if (!checkPassword(name, password)) {
             throw new RuntimeException("Incorrect password");
         }
 
-        Character character = characters.get(name);
-        if (character == null) {
+        pChar pChar = characters.get(name);
+        if (pChar == null) {
             throw new RuntimeException("Character not found: " + name);
         }
 
-        return character;
+        return pChar;
     }
 
-    public void createCharacter(String name, String domain, String specialization, String home) {
-        Character character = new Character();
-        character.setName(name);
-        character.setDomain(domain);
-        character.setSpecialization(specialization);
-        character.setHome(home);
-        character.setHp(1000);
-        character.setEnergy(1000);
-        character.setLf(1000);
-        characters.put(name, character);
+    public void createpChar(String name, String domain, String specialization, String home) {
+        pChar pChar = new pChar();
+        pChar.setName(name);
+        pChar.setDomain(domain);
+        pChar.setSpecialization(specialization);
+        pChar.setHome(home);
+        pChar.setHp(1000);
+        pChar.setEnergy(1000);
+        pChar.setLf(1000);
+        characters.put(name, pChar);
     }
 
     private boolean checkPassword(String name, String password) {

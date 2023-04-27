@@ -13,7 +13,7 @@ public class MudServer {
     public MudServer(int port) {
         try {
             serverSocket = new ServerSocket(port);
-            mudWorld = new MudWorld();
+            mudWorld = new perfection.MudWorld();
             System.out.println("MUD server started on port " + port);
         } catch (IOException e) {
             System.err.println("Could not start MUD server on port " + port);
@@ -21,21 +21,23 @@ public class MudServer {
         }
     }
 
-    public Character createCharacter(String name) {
-        Character character = new Character();
-        character.setName(name);
-        character.setHp(1000);
-        character.setEnergy(1000);
-        character.setLf(1000);
+    public pChar createpChar(String name) {
+        perfection.pChar CharPlayer = new perfection.pChar();
+        CharPlayer.setName(name);
+        CharPlayer.setHp(1000);
+        CharPlayer.setEnergy(1000);
+        CharPlayer.setLf(1000);
         // Set default values for other fields
-        return character;
+        return CharPlayer;
     }
 
-    public Character loadCharacter(String name) {
-        // Load character file and create character object
+    public perfection.pChar loadpChar(String name) {
+        // Load pChar file and create pChar object
+        perfection.pChar pChar = new perfection.pChar();
         // ...
-        return character;
+        return pChar;
     }
+
 
 
     public void run() {

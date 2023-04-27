@@ -1,4 +1,6 @@
-public class Character {
+package perfection;
+
+public class pChar {
     private String name;
     private String domain;
     private String specialization;
