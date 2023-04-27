@@ -7,17 +7,6 @@ public class Character {
     private int energy;
     private int lf;
 
-    public Character(String name, String domain, String specialization, String home, int hp, int energy, int lf) {
-        this.name = name;
-        this.domain = domain;
-        this.specialization = specialization;
-        this.home = home;
-        this.hp = hp;
-        this.energy = energy;
-        this.lf = lf;
-    }
-
-    // getters and setters for all attributes
     public String getName() {
         return name;
     }

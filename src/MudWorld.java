@@ -1,6 +1,7 @@
 package perfection;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.File;
@@ -8,15 +9,61 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 
 public class MudWorld {
-    
+
     private Map<String, MudClientHandler> clients = new HashMap<>();
-    private Map<String, MudZone> zones = new HashMap<>();
+    private Map<String, Character> characters;
+//    private Map<String, MudZone> zones = new HashMap<>();
+    private List<MudZone> zones;
 
     public MudWorld() {
+        this.zones = new ArrayList<>();
+        this.characters = new HashMap<>();
         loadZones();
+    }
+
+    public void removeZone(MudZone zone) {
+        zones.remove(zone);
+    }
+
+    public void addZone(MudZone zone) {
+        zones.add(zone);
+    }
+
+    public MudRoom getRoomById(int id) {
+        for (MudZone zone : zones) {
+            MudRoom room = zone.getRoomById(id);
+            if (room != null) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public MudRoom getStartingRoom() {
+        // Just returns the first room of the first zone
+        MudZone startingZone = zones.get(0);
+        return startingZone.getRooms().get(0);
+    }
+
+    public MudRoom findRoom(String name) {
+        for (MudZone zone : zones) {
+            MudRoom room = zone.findRoom(name);
+            if (room != null) {
+                return room;
+            }
+        }
+        return null;
     }
 
     private void loadZones() {
@@ -46,15 +93,44 @@ public class MudWorld {
         }
     }
 
+    public Character loadCharacter(String name, String password) {
+        if (!checkPassword(name, password)) {
+            throw new RuntimeException("Incorrect password");
+        }
+
+        Character character = characters.get(name);
+        if (character == null) {
+            throw new RuntimeException("Character not found: " + name);
+        }
+
+        return character;
+    }
+
+    public void createCharacter(String name, String domain, String specialization, String home) {
+        Character character = new Character();
+        character.setName(name);
+        character.setDomain(domain);
+        character.setSpecialization(specialization);
+        character.setHome(home);
+        character.setHp(1000);
+        character.setEnergy(1000);
+        character.setLf(1000);
+        characters.put(name, character);
+    }
+
+    private boolean checkPassword(String name, String password) {
+        // logic to check the password goes here
+        return true;
+    }
 
     public synchronized void addClient(String name, MudClientHandler handler) {
         clients.put(name, handler);
     }
-    
+
     public synchronized void removeClient(String name) {
         clients.remove(name);
     }
-    
+
     public synchronized void broadcast(String message, MudClientHandler sender) {
         String fullMessage = sender.getName() + " says: " + message;
         for (MudClientHandler client : clients.values()) {
@@ -68,7 +144,7 @@ public class MudWorld {
     }
 
 
-    
+
     public String processCommand(String command, MudClientHandler sender) {
         String[] tokens = command.split(" ");
         String commandName = tokens[0].toLowerCase();
@@ -84,7 +160,7 @@ public class MudWorld {
                 return "Unknown command: " + commandName;
         }
     }
-    
+
     private String processSayCommand(String[] tokens, MudClientHandler sender) {
         if (tokens.length < 2) {
             return "Say what?";
@@ -93,14 +169,15 @@ public class MudWorld {
         broadcast(message, sender);
         return "You say: " + message;
     }
-    
+
     private String processLookCommand(MudClientHandler sender) {
         // TODO: implement logic for processing "look" command
         return "You look around.";
     }
-    
+
     private String processMoveCommand(String[] tokens, MudClientHandler sender) {
         // TODO: implement logic for processing "move" command
         return "You move.";
     }
+
 }

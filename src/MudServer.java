@@ -21,6 +21,23 @@ public class MudServer {
         }
     }
 
+    public Character createCharacter(String name) {
+        Character character = new Character();
+        character.setName(name);
+        character.setHp(1000);
+        character.setEnergy(1000);
+        character.setLf(1000);
+        // Set default values for other fields
+        return character;
+    }
+
+    public Character loadCharacter(String name) {
+        // Load character file and create character object
+        // ...
+        return character;
+    }
+
+
     public void run() {
         while (true) {
             try {
