@@ -25,6 +25,7 @@ public class MudWorld {
     private Map<String, pChar> characters;
 //    private Map<String, MudZone> zones = new HashMap<>();
     private List<MudZone> zones;
+    private Map<String, Player> players = new HashMap<>();
 
     public MudWorld() {
         this.zones = new ArrayList<>();
@@ -155,6 +156,8 @@ public class MudWorld {
                 return processLookCommand(sender);
             case "move":
                 return processMoveCommand(tokens, sender);
+            case "score":
+                return processScoreCommand(sender);
             // add more cases for other commands
             default:
                 return "Unknown command: " + commandName;
@@ -179,5 +182,29 @@ public class MudWorld {
         // TODO: implement logic for processing "move" command
         return "You move.";
     }
+
+    public Player getPlayer(String name) {
+        return players.get(name);
+    }
+
+    private String processScoreCommand() {
+        // Get the current player's character file
+        Character playerChar = currentPlayer.getCharacter();
+
+        // Build a string with the character's information
+        StringBuilder scoreBuilder = new StringBuilder();
+        scoreBuilder.append("Name: ").append(playerChar.getName()).append("\n");
+        scoreBuilder.append("Level: ").append(playerChar.getLevel()).append("\n");
+        scoreBuilder.append("Class: ").append(playerChar.getClassName()).append("\n");
+        scoreBuilder.append("Race: ").append(playerChar.getRaceName()).append("\n");
+        scoreBuilder.append("Health: ").append(playerChar.getCurrentHealth()).append("/").append(playerChar.getMaxHealth()).append("\n");
+        scoreBuilder.append("Mana: ").append(playerChar.getCurrentMana()).append("/").append(playerChar.getMaxMana()).append("\n");
+        scoreBuilder.append("Experience: ").append(playerChar.getCurrentExp()).append("/").append(playerChar.getNextLevelExp()).append("\n");
+        scoreBuilder.append("Gold: ").append(playerChar.getGold()).append("\n");
+
+        // Return the character's information as a string
+        return scoreBuilder.toString();
+    }
+
 
 }
