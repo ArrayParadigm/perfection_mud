@@ -194,13 +194,13 @@ public class MudWorld {
         // Build a string with the character's information
         StringBuilder scoreBuilder = new StringBuilder();
         scoreBuilder.append("Name: ").append(playerChar.getName()).append("\n");
-        scoreBuilder.append("Level: ").append(playerChar.getLevel()).append("\n");
-        scoreBuilder.append("Class: ").append(playerChar.getClassName()).append("\n");
-        scoreBuilder.append("Race: ").append(playerChar.getRaceName()).append("\n");
-        scoreBuilder.append("Health: ").append(playerChar.getCurrentHealth()).append("/").append(playerChar.getMaxHealth()).append("\n");
-        scoreBuilder.append("Mana: ").append(playerChar.getCurrentMana()).append("/").append(playerChar.getMaxMana()).append("\n");
-        scoreBuilder.append("Experience: ").append(playerChar.getCurrentExp()).append("/").append(playerChar.getNextLevelExp()).append("\n");
-        scoreBuilder.append("Gold: ").append(playerChar.getGold()).append("\n");
+        scoreBuilder.append("Domain: ").append(playerChar.getDomain()).append("\n");
+        scoreBuilder.append("Specialization: ").append(playerChar.getSpecialization()).append("\n");
+        scoreBuilder.append("Home: ").append(playerChar.getHome()).append("\n");
+        scoreBuilder.append("HP: ").append(playerChar.getHp()).append("/")://.append(playerChar.getMaxHealth()).append("\n");
+        scoreBuilder.append("Energy: ").append(playerChar.getEnergy()).append("/").append(playerChar.getMaxMana()).append("\n");
+//        scoreBuilder.append("Experience: ").append(playerChar.getCurrentExp()).append("/").append(playerChar.getNextLevelExp()).append("\n");
+//        scoreBuilder.append("Gold: ").append(playerChar.getGold()).append("\n");
 
         // Return the character's information as a string
         return scoreBuilder.toString();
