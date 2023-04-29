@@ -1,6 +1,13 @@
 package perfection;
 
 
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.IOException;
+
+
+
+
 public class pChar {
     private String name;
     private String domain;
@@ -63,6 +70,14 @@ public class pChar {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public int getMaxHp() { // added getter for maximum HP
