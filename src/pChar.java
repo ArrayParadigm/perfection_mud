@@ -18,6 +18,7 @@ public class pChar {
     private int energy;
     private int maxEnergy; // added field for maximum energy
     private int lf;
+    private String password;
 
     // added constructor that initializes all fields
     public pChar(String name, String domain, String specialization, String home, int hp, int maxHp, int energy, int maxEnergy, int lf) {
@@ -30,6 +31,7 @@ public class pChar {
         this.energy = energy;
         this.maxEnergy = maxEnergy;
         this.lf = lf;
+        password = pw;
     }
 
     public String getName() {
@@ -77,7 +79,7 @@ public class pChar {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public int getMaxHp() { // added getter for maximum HP
@@ -114,16 +116,16 @@ public class pChar {
 
     public pChar createpChar(String name) {
         Scanner scanner = new Scanner(System.in);
-        perfection.pChar CharPlayer = new perfection.pChar();
-        CharPlayer.setName(name);
-        CharPlayer.setHp(1000);
-        CharPlayer.setEnergy(1000);
-        CharPlayer.setLf(1000);
+        pChar charPlayer = new pChar();
+        charPlayer.setName(name);
+        charPlayer.setHp(1000);
+        charPlayer.setEnergy(1000);
+        charPlayer.setLf(1000);
 
         // Prompt user to set a password
         System.out.println("Enter a password for your character:");
         String password = scanner.nextLine();
-        CharPlayer.setPassword(password);
+        charPlayer.setPassword(password);
 
         // Prompt user to set a domain
         System.out.println("Choose a domain for your character:");
@@ -131,20 +133,20 @@ public class pChar {
         int domainChoice = scanner.nextInt();
         switch (domainChoice) {
             case 1:
-                CharPlayer.setDomain("Air");
+                charPlayer.setDomain("Air");
                 break;
             case 2:
-                CharPlayer.setDomain("Earth");
+                charPlayer.setDomain("Earth");
                 break;
             case 3:
-                CharPlayer.setDomain("Fire");
+                charPlayer.setDomain("Fire");
                 break;
             case 4:
-                CharPlayer.setDomain("Water");
+                charPlayer.setDomain("Water");
                 break;
             default:
                 System.out.println("Invalid choice. Setting default domain to Air.");
-                CharPlayer.setDomain("Air");
+                charPlayer.setDomain("Air");
                 break;
         }
 
@@ -154,40 +156,40 @@ public class pChar {
         int specializationChoice = scanner.nextInt();
         switch (specializationChoice) {
             case 1:
-                CharPlayer.setSpecialization("Warrior");
+                charPlayer.setSpecialization("Warrior");
                 break;
             case 2:
-                CharPlayer.setSpecialization("Mage");
+                charPlayer.setSpecialization("Mage");
                 break;
             case 3:
-                CharPlayer.setSpecialization("Rogue");
+                charPlayer.setSpecialization("Rogue");
                 break;
             case 4:
-                CharPlayer.setSpecialization("Priest");
+                charPlayer.setSpecialization("Priest");
                 break;
             default:
                 System.out.println("Invalid choice. Setting default specialization to Warrior.");
-                CharPlayer.setSpecialization("Warrior");
+                charPlayer.setSpecialization("Warrior");
                 break;
         }
 
         // Save the new character to a file
         try {
             PrintWriter writer = new PrintWriter(name + ".character", "UTF-8");
-            writer.println("Name: " + CharPlayer.getName());
-            writer.println("Password: " + CharPlayer.getPassword());
-            writer.println("Domain: " + CharPlayer.getDomain());
-            writer.println("Specialization: " + CharPlayer.getSpecialization());
-            writer.println("Hp: " + CharPlayer.getHp());
-            writer.println("Energy: " + CharPlayer.getEnergy());
-            writer.println("Lf: " + CharPlayer.getLf());
+            writer.println("Name: " + charPlayer.getName());
+            writer.println("Password: " + charPlayer.getPassword());
+            writer.println("Domain: " + charPlayer.getDomain());
+            writer.println("Specialization: " + charPlayer.getSpecialization());
+            writer.println("Hp: " + charPlayer.getHp());
+            writer.println("Energy: " + charPlayer.getEnergy());
+            writer.println("Lf: " + charPlayer.getLf());
             // Add other fields as needed
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving character file.");
         }
 
-        return CharPlayer;
+        return charPlayer;
     }
 
 }
