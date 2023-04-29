@@ -88,7 +88,7 @@ public class MudWorld {
     }
 
 
-    public pChar loadpChar(String name, String password) {
+    public pChar loadpChar(String name, String password, perfection.MudClientHandler sender) {
         pChar player = characters.get(name);
         if (player == null) {
             // If player doesn't exist, create a new one

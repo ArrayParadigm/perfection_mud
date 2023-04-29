@@ -89,27 +89,33 @@ public class MudServer {
         return character;
     }
 */
-public perfection.pChar loadpChar(String name, String password) {
-    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-    perfection.pChar character = characters.get(name);
-    if (character == null) {
-        // If character doesn't exist, create a new one
-        pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
-        character = pchar.createpChar(name);
-        characters.put(name, character);
-    } else if (!character.checkPassword(password)) {
-        // If password is incorrect, prompt for password again
-        out.println("Incorrect password! Please try again.");
+
+    public perfection.pChar loadpChar(String name, String password, Socket clientSocket) {
         try {
-            clientSocket.close();
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            perfection.pChar character = characters.get(name);
+            if (character == null) {
+                // If character doesn't exist, create a new one
+                pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
+                character = pchar.createpChar(name);
+                characters.put(name, character);
+            } else if (!character.checkPassword(password)) {
+                // If password is incorrect, prompt for password again
+                out.println("Incorrect password! Please try again.");
+                try {
+                    clientSocket.close();
+                } catch (IOException e) {
+                    System.err.println("Error closing client socket: " + e.getMessage());
+                }
+                return null; // Return null to indicate that the connection has been closed
+            }
+            return character;
         } catch (IOException e) {
-            System.err.println("Error closing client socket: " + e.getMessage());
+            System.err.println("Error handling client: " + e.getMessage());
+            return null; // Return null to indicate that an error occurred
         }
-        return null; // Return null to indicate that the connection has been closed
     }
 
-    return character;
-}
 
 
 
