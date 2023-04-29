@@ -23,6 +23,7 @@ import perfection.*;
 public class MudWorld {
 
     private Map<String, MudClientHandler> clients = new HashMap<>();
+//    pChar character = mudWorld.createpChar("name");
     private Map<String, pChar> characters;
 //    private Map<String, MudZone> zones = new HashMap<>();
     private List<MudZone> zones;
@@ -50,6 +51,10 @@ public class MudWorld {
             }
         }
         return null;
+    }
+
+    public Map<String, pChar> getCharacters() {
+        return characters;
     }
 
     public MudRoom getStartingRoom() {
@@ -140,8 +145,17 @@ public class MudWorld {
             }
         }
     }
-
-
+/*
+    public MudRoom getRoomById(int id) {
+        for (MudZone zone : zones) {
+            MudRoom room = zone.getRoomById(id);
+            if (room != null) {
+                return room;
+            }
+        }
+        return null;
+    }
+*/
 
     public String processCommand(String command, MudClientHandler sender) {
         String[] tokens = command.split(" ");
@@ -194,8 +208,8 @@ public class MudWorld {
         scoreBuilder.append("Domain: ").append(playerChar.getDomain()).append("\n");
         scoreBuilder.append("Specialization: ").append(playerChar.getSpecialization()).append("\n");
         scoreBuilder.append("Home: ").append(playerChar.getHome()).append("\n");
-        scoreBuilder.append("HP: ").append(playerChar.getHp()).append("/");//.append(playerChar.getMaxHealth()).append("\n");
-        scoreBuilder.append("Energy: ").append(playerChar.getEnergy()).append("/").append(playerChar.getMaxMana()).append("\n");
+        scoreBuilder.append("HP: ").append(playerChar.getHp());//.append("/");//.append(playerChar.getMaxHealth()).append("\n");
+        scoreBuilder.append("Energy: ").append(playerChar.getEnergy());//.append("/").append(playerChar.getMaxMana()).append("\n");
 //        scoreBuilder.append("Experience: ").append(playerChar.getCurrentExp()).append("/").append(playerChar.getNextLevelExp()).append("\n");
 //        scoreBuilder.append("Gold: ").append(playerChar.getGold()).append("\n");
 

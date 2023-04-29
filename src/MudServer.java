@@ -9,6 +9,8 @@ import java.util.Map;
 public class MudServer {
     private ServerSocket serverSocket;
     private perfection.MudWorld mudWorld;
+    Map<String, pChar> characters = mudWorld.getCharacters();
+
 
     public MudServer(int port) {
         try {
@@ -65,12 +67,14 @@ public class MudServer {
         return character;
     }
 */
-
+/*
     public perfection.pChar loadpChar(String name, String password) {
-        perfection.pChar character = characters.get(name);
+        pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
+        perfection.pChar character = pchar.createpChar(name);
         if (character == null) {
             // If character doesn't exist, create a new one
-            character = createpChar(name, "defaultDomain", "defaultSpecialization", "defaultHome", 100, 100, 100, 100, 100, password);
+            pChar character = pchar.createpChar(name);
+//            character = pChar.createpChar(name);//, "defaultDomain", "defaultSpecialization", "defaultHome", 100, 100, 100, 100, 100, password);
         } else if (!character.checkPassword(password)) {
             // If password is incorrect, prompt for password again
             out.println("Incorrect password! Please try again.");
@@ -84,6 +88,29 @@ public class MudServer {
 
         return character;
     }
+*/
+public perfection.pChar loadpChar(String name, String password) {
+    perfection.pChar character = characters.get(name);
+    if (character == null) {
+        // If character doesn't exist, create a new one
+        pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
+        character = pchar.createpChar(name);
+        characters.put(name, character);
+    } else if (!character.checkPassword(password)) {
+        // If password is incorrect, prompt for password again
+        out.println("Incorrect password! Please try again.");
+        try {
+            clientSocket.close();
+        } catch (IOException e) {
+            System.err.println("Error closing client socket: " + e.getMessage());
+        }
+        return null; // Return null to indicate that the connection has been closed
+    }
+
+    return character;
+}
+
+
 
 
     public void run() {
@@ -102,6 +129,7 @@ public class MudServer {
     public static void main(String[] args) {
         int port = Integer.parseInt(args[0]);
         MudServer server = new MudServer(port);
+        MudWorld mudWorld = new MudWorld();
         server.run();
     }
 }

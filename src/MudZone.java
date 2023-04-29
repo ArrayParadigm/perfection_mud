@@ -46,4 +46,14 @@ public class MudZone {
             System.err.println("Error loading rooms for zone " + name + ": " + e.getMessage());
         }
     }
+
+    public MudRoom getRoomById(int id) {
+        for (MudRoom room : rooms) {
+            if (room.getNumber() == id) {
+                return room;
+            }
+        }
+        return null;
+    }
 }
+
