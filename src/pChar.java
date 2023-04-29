@@ -21,7 +21,7 @@ public class pChar {
     private String password;
 
     // added constructor that initializes all fields
-    public pChar(String name, String domain, String specialization, String home, int hp, int maxHp, int energy, int maxEnergy, int lf) {
+    public pChar(String name, String domain, String specialization, String home, int hp, int maxHp, int energy, int maxEnergy, int lf, String pw) {
         this.name = name;
         this.domain = domain;
         this.specialization = specialization;
@@ -116,7 +116,7 @@ public class pChar {
 
     public pChar createpChar(String name) {
         Scanner scanner = new Scanner(System.in);
-        pChar charPlayer = new pChar();
+        pChar charPlayer = new pChar(name, "", "", "", 1000, 1000, 1000, 1000, 1000); // create a new pChar with default values
         charPlayer.setName(name);
         charPlayer.setHp(1000);
         charPlayer.setEnergy(1000);
@@ -133,20 +133,20 @@ public class pChar {
         int domainChoice = scanner.nextInt();
         switch (domainChoice) {
             case 1:
-                charPlayer.setDomain("Air");
+                charPlayer = new pChar(name, "Air", null, null, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             case 2:
-                charPlayer.setDomain("Earth");
+                charPlayer = new pChar(name, "Earth", null, null, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             case 3:
-                charPlayer.setDomain("Fire");
+                charPlayer = new pChar(name, "Fire", null, null, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             case 4:
-                charPlayer.setDomain("Water");
+                charPlayer = new pChar(name, "Water", null, null, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             default:
                 System.out.println("Invalid choice. Setting default domain to Air.");
-                charPlayer.setDomain("Air");
+                charPlayer = new pChar(name, "Air", null, null, 1000, 1000, 1000, 1000, 1000, password);
                 break;
         }
 
@@ -170,6 +170,30 @@ public class pChar {
             default:
                 System.out.println("Invalid choice. Setting default specialization to Warrior.");
                 charPlayer.setSpecialization("Warrior");
+                break;
+        }
+
+        // Prompt user to set a home zone
+        System.out.println("Choose a home zone for your character:");
+        System.out.println("1. Forest\n2. Mountains\n3. Plains\n4. Coast");
+        int homeChoice = scanner.nextInt();
+        scanner.nextLine(); // consume the newline character left by nextInt()
+        switch (homeChoice) {
+            case 1:
+                charPlayer.setHome("Forest");
+                break;
+            case 2:
+                charPlayer.setHome("Mountains");
+                break;
+            case 3:
+                charPlayer.setHome("Plains");
+                break;
+            case 4:
+                charPlayer.setHome("Coast");
+                break;
+            default:
+                System.out.println("Invalid choice. Setting default home zone to Forest.");
+                charPlayer.setHome("Forest");
                 break;
         }
 
