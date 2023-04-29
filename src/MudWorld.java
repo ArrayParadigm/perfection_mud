@@ -63,9 +63,9 @@ public class MudWorld {
         return startingZone.getRooms().get(0);
     }
 
-    public MudRoom findRoom(String name) {
+    public MudRoom findRoom(int vnum) {
         for (MudZone zone : zones) {
-            MudRoom room = zone.findRoom(name);
+            MudRoom room = zone.findRoom(vnum);
             if (room != null) {
                 return room;
             }
@@ -87,7 +87,7 @@ public class MudWorld {
         }
     }
 
-
+/*
     public pChar loadpChar(String name, String password, perfection.MudClientHandler sender) {
         pChar player = characters.get(name);
         if (player == null) {
@@ -106,7 +106,7 @@ public class MudWorld {
 
         return player;
     }
-
+*/
 
     /*
     public void createpChar(String name, String domain, String specialization, String home) {
@@ -168,7 +168,7 @@ public class MudWorld {
             case "move":
                 return processMoveCommand(tokens, sender);
             case "score":
-                return processScoreCommand();
+                return null;
             // add more cases for other commands
             default:
                 return "Unknown command: " + commandName;
@@ -198,9 +198,9 @@ public class MudWorld {
         return players.get(name);
     }
 
-    private String processScoreCommand() {
+    private String processScoreCommand(MudClientHandler sender) {
         // Get the current player's character file
-        perfection.pChar playerChar = currentPlayer.getCharacter();
+/*        pChar playerChar = sender;
 
         // Build a string with the character's information
         StringBuilder scoreBuilder = new StringBuilder();
@@ -214,7 +214,8 @@ public class MudWorld {
 //        scoreBuilder.append("Gold: ").append(playerChar.getGold()).append("\n");
 
         // Return the character's information as a string
-        return scoreBuilder.toString();
+        return scoreBuilder.toString(); */
+        return null;
     }
 
 

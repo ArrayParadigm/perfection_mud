@@ -55,5 +55,15 @@ public class MudZone {
         }
         return null;
     }
+
+    public MudRoom findRoom(int vnum) {
+        for (MudRoom room : rooms) {
+            if (room.getName().equals(vnum)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
 }
 
