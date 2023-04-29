@@ -92,7 +92,10 @@ public class MudWorld {
         pChar player = characters.get(name);
         if (player == null) {
             // If player doesn't exist, create a new one
-            player = createpChar(name);
+            player = createpChar(name, password,"nerd");
+            //player = new pChar(name);
+            player.createpChar(password); // call the createpChar() method on the new instance of pChar
+
         } else if (!player.checkPassword(password)) {
             // If password is incorrect, prompt for password again
             out.println("Incorrect password! Please try again.");
@@ -107,9 +110,22 @@ public class MudWorld {
         return player;
     }
 */
+/*
+    public pChar createpChar(String name, String domain, String specialization, int home, int hp, int maxHp, int energy, int maxEnergy, int lf, String pw) {
+        pChar newChar = new pChar(name, domain, specialization, 10001, 1000, 1000, 1000, 1000, 1, pw);
+        characters.put(name, newChar);
+        return newChar;
+    }
 
+*/
     /*
-    public void createpChar(String name, String domain, String specialization, String home) {
+    public pChar createpChar(String name, String password, String description, int strength, int dexterity, int intelligence, int wisdom, int charisma, int maxHitPoints, String startingLocation) {
+    pChar newChar = new pChar(name, password, description, strength, dexterity, intelligence, wisdom, charisma, maxHitPoints, startingLocation);
+    characters.put(name, newChar);
+    return newChar;
+}
+
+    public pChar createpChar(String name, String domain, String specialization, String home) {
         pChar pChar = new pChar();
         pChar.setName(name);
         pChar.setDomain(domain);

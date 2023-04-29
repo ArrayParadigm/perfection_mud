@@ -158,6 +158,7 @@ class MudClientHandler implements Runnable {
         }
     }
 
+    /*
     public void run() {
         try {
             out.println("Welcome to the MUD! What is your name?");
@@ -166,6 +167,41 @@ class MudClientHandler implements Runnable {
                 return;
             }
             name = input;
+            mudWorld.addClient(name, this);
+            out.println("Hello, " + name + "! You are in " + location);
+            while (true) {
+                input = in.readLine();
+                if (input == null) {
+                    break;
+                }
+                String output = mudWorld.processCommand(input, this);
+                out.println(output);
+            }
+        } catch (IOException e) {
+            System.err.println("Error handling client: " + e.getMessage());
+        } finally {
+            try {
+                mudWorld.removeClient(name);
+                clientSocket.close();
+            } catch (IOException e) {
+                System.err.println("Error closing client socket: " + e.getMessage());
+            }
+        }
+    } */ //Unused void run as below
+
+    public void run() {
+        try {
+            String password = "";
+            out.println("Welcome to the MUD! What is your name?");
+            String input = in.readLine();
+            if (input == null) {
+                return;
+            }
+            name = input;
+            pChar player = mudServer.loadpChar(name, password, clientSocket); // Load or create a character
+            if (player == null) {
+                return; // If player is null, the connection has been closed
+            }
             mudWorld.addClient(name, this);
             out.println("Hello, " + name + "! You are in " + location);
             while (true) {
