@@ -5,9 +5,6 @@ import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
 
-
-
-
 public class pChar {
     private String name;
     private String domain;
@@ -212,6 +209,7 @@ public class pChar {
         } catch (IOException e) {
             System.out.println("Error saving character file.");
         }
+        System.out.println
 
         return charPlayer;
     }
