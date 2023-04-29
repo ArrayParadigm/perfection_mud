@@ -9,19 +9,20 @@ import java.util.Map;
 public class MudServer {
     private ServerSocket serverSocket;
     private perfection.MudWorld mudWorld;
-    Map<String, pChar> characters = mudWorld.getCharacters();
+    Map<String, pChar> characters;
 
-
-    public MudServer(int port) {
+    public MudServer(int port, MudWorld mudWorld) {
         try {
             serverSocket = new ServerSocket(port);
-            mudWorld = new perfection.MudWorld();
+            this.mudWorld = mudWorld;
+            characters = mudWorld.getCharacters(); // Moved this line here
             System.out.println("MUD server started on port " + port);
         } catch (IOException e) {
             System.err.println("Could not start MUD server on port " + port);
             System.exit(1);
         }
     }
+
 /*
     public pChar createpChar(String name) {
         perfection.pChar CharPlayer = new perfection.pChar();
@@ -116,10 +117,6 @@ public class MudServer {
         }
     }
 
-
-
-
-
     public void run() {
         while (true) {
             try {
@@ -135,8 +132,8 @@ public class MudServer {
 
     public static void main(String[] args) {
         int port = Integer.parseInt(args[0]);
-        MudServer server = new MudServer(port);
         MudWorld mudWorld = new MudWorld();
+        MudServer server = new MudServer(port, mudWorld);
         server.run();
     }
 }
