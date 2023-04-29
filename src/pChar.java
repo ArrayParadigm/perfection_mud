@@ -1,5 +1,6 @@
 package perfection;
 
+
 public class pChar {
     private String name;
     private String domain;
@@ -95,4 +96,83 @@ public class pChar {
     public void setLf(int lf) {
         this.lf = lf;
     }
+
+    public pChar createpChar(String name) {
+        Scanner scanner = new Scanner(System.in);
+        perfection.pChar CharPlayer = new perfection.pChar();
+        CharPlayer.setName(name);
+        CharPlayer.setHp(1000);
+        CharPlayer.setEnergy(1000);
+        CharPlayer.setLf(1000);
+
+        // Prompt user to set a password
+        System.out.println("Enter a password for your character:");
+        String password = scanner.nextLine();
+        CharPlayer.setPassword(password);
+
+        // Prompt user to set a domain
+        System.out.println("Choose a domain for your character:");
+        System.out.println("1. Air\n2. Earth\n3. Fire\n4. Water");
+        int domainChoice = scanner.nextInt();
+        switch (domainChoice) {
+            case 1:
+                CharPlayer.setDomain("Air");
+                break;
+            case 2:
+                CharPlayer.setDomain("Earth");
+                break;
+            case 3:
+                CharPlayer.setDomain("Fire");
+                break;
+            case 4:
+                CharPlayer.setDomain("Water");
+                break;
+            default:
+                System.out.println("Invalid choice. Setting default domain to Air.");
+                CharPlayer.setDomain("Air");
+                break;
+        }
+
+        // Prompt user to set a specialization
+        System.out.println("Choose a specialization for your character:");
+        System.out.println("1. Warrior\n2. Mage\n3. Rogue\n4. Priest");
+        int specializationChoice = scanner.nextInt();
+        switch (specializationChoice) {
+            case 1:
+                CharPlayer.setSpecialization("Warrior");
+                break;
+            case 2:
+                CharPlayer.setSpecialization("Mage");
+                break;
+            case 3:
+                CharPlayer.setSpecialization("Rogue");
+                break;
+            case 4:
+                CharPlayer.setSpecialization("Priest");
+                break;
+            default:
+                System.out.println("Invalid choice. Setting default specialization to Warrior.");
+                CharPlayer.setSpecialization("Warrior");
+                break;
+        }
+
+        // Save the new character to a file
+        try {
+            PrintWriter writer = new PrintWriter(name + ".character", "UTF-8");
+            writer.println("Name: " + CharPlayer.getName());
+            writer.println("Password: " + CharPlayer.getPassword());
+            writer.println("Domain: " + CharPlayer.getDomain());
+            writer.println("Specialization: " + CharPlayer.getSpecialization());
+            writer.println("Hp: " + CharPlayer.getHp());
+            writer.println("Energy: " + CharPlayer.getEnergy());
+            writer.println("Lf: " + CharPlayer.getLf());
+            // Add other fields as needed
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving character file.");
+        }
+
+        return CharPlayer;
+    }
+
 }
