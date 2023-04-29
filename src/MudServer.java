@@ -20,7 +20,7 @@ public class MudServer {
             System.exit(1);
         }
     }
-
+/*
     public pChar createpChar(String name) {
         perfection.pChar CharPlayer = new perfection.pChar();
         CharPlayer.setName(name);
@@ -30,22 +30,29 @@ public class MudServer {
         // Set default values for other fields
         return CharPlayer;
     }
-
-    public perfection.pChar loadpChar(String name) {
-        perfection.pChar character = new perfection.pChar();
+*/
+/*
+    public pChar loadpChar(String name) {
+        pChar character = new pChar();
         try {
-            File file = new File(name + ".txt");
+            File file = new File(name + ".character");
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             while (line != null) {
                 String[] parts = line.split(":");
-                if (parts[0].equals("name")) {
+                if (parts[0].equals("NAME")) {
                     character.setName(parts[1]);
-                } else if (parts[0].equals("hp")) {
+                } else if (parts[0].equals("DOMAIN")) {
+                    character.setDomain(parts[1]);
+                } else if (parts[0].equals("SPECIALIZATION")) {
+                    character.setSpecialization(parts[1]);
+                } else if (parts[0].equals("HOME")) {
+                    character.setHome(Integer.parseInt(parts[1]));
+                } else if (parts[0].equals("HP")) {
                     character.setHp(Integer.parseInt(parts[1]));
-                } else if (parts[0].equals("energy")) {
+                } else if (parts[0].equals("ENERGY")) {
                     character.setEnergy(Integer.parseInt(parts[1]));
-                } else if (parts[0].equals("lf")) {
+                } else if (parts[0].equals("LF")) {
                     character.setLf(Integer.parseInt(parts[1]));
                 }
                 line = reader.readLine();
@@ -57,8 +64,26 @@ public class MudServer {
         System.out.println(character);
         return character;
     }
+*/
 
+    public perfection.pChar loadpChar(String name, String password) {
+        perfection.pChar character = characters.get(name);
+        if (character == null) {
+            // If character doesn't exist, create a new one
+            character = createpChar(name, "defaultDomain", "defaultSpecialization", "defaultHome", 100, 100, 100, 100, 100, password);
+        } else if (!character.checkPassword(password)) {
+            // If password is incorrect, prompt for password again
+            out.println("Incorrect password! Please try again.");
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                System.err.println("Error closing client socket: " + e.getMessage());
+            }
+            return null; // Return null to indicate that the connection has been closed
+        }
 
+        return character;
+    }
 
 
     public void run() {

@@ -84,18 +84,26 @@ public class MudWorld {
 
 
     public pChar loadpChar(String name, String password) {
-        if (!checkPassword(name, password)) {
-            throw new RuntimeException("Incorrect password");
+        pChar player = characters.get(name);
+        if (player == null) {
+            // If player doesn't exist, create a new one
+            player = createpChar(name);
+        } else if (!player.checkPassword(password)) {
+            // If password is incorrect, prompt for password again
+            out.println("Incorrect password! Please try again.");
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                System.err.println("Error closing client socket: " + e.getMessage());
+            }
+            return null; // Return null to indicate that the connection has been closed
         }
 
-        pChar pChar = characters.get(name);
-        if (pChar == null) {
-            throw new RuntimeException("Character not found: " + name);
-        }
-
-        return pChar;
+        return player;
     }
 
+
+    /*
     public void createpChar(String name, String domain, String specialization, String home) {
         pChar pChar = new pChar();
         pChar.setName(name);
@@ -107,7 +115,7 @@ public class MudWorld {
         pChar.setLf(1000);
         characters.put(name, pChar);
     }
-
+*/
     private boolean checkPassword(String name, String password) {
         // logic to check the password goes here
         return true;

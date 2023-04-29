@@ -9,7 +9,7 @@ public class pChar {
     private String name;
     private String domain;
     private String specialization;
-    private String home;
+    private int home;
     private int hp;
     private int maxHp; // added field for maximum HP
     private int energy;
@@ -18,7 +18,7 @@ public class pChar {
     private String password;
 
     // added constructor that initializes all fields
-    public pChar(String name, String domain, String specialization, String home, int hp, int maxHp, int energy, int maxEnergy, int lf, String pw) {
+    public pChar(String name, String domain, String specialization, int home, int hp, int maxHp, int energy, int maxEnergy, int lf, String pw) {
         this.name = name;
         this.domain = domain;
         this.specialization = specialization;
@@ -55,11 +55,11 @@ public class pChar {
         this.specialization = specialization;
     }
 
-    public String getHome() {
+    public int getHome() {
         return home;
     }
 
-    public void setHome(String home) {
+    public void setHome(int home) {
         this.home = home;
     }
 
@@ -113,7 +113,7 @@ public class pChar {
 
     public pChar createpChar(String name) {
         Scanner scanner = new Scanner(System.in);
-        pChar charPlayer = new pChar(name, "", "", "", 1000, 1000, 1000, 1000, 1000); // create a new pChar with default values
+        pChar charPlayer = new pChar(name, "", "", 10001, 1000, 1000, 1000, 1000, 1000, ""); // create a new pChar with default values
         charPlayer.setName(name);
         charPlayer.setHp(1000);
         charPlayer.setEnergy(1000);
@@ -130,20 +130,20 @@ public class pChar {
         int domainChoice = scanner.nextInt();
         switch (domainChoice) {
             case 1:
-                charPlayer = new pChar(name, "Air", null, null, 1000, 1000, 1000, 1000, 1000, password);
+                charPlayer = new pChar(name, "Air", null, 10001, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             case 2:
-                charPlayer = new pChar(name, "Earth", null, null, 1000, 1000, 1000, 1000, 1000, password);
+                charPlayer = new pChar(name, "Earth", null, 10001, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             case 3:
-                charPlayer = new pChar(name, "Fire", null, null, 1000, 1000, 1000, 1000, 1000, password);
+                charPlayer = new pChar(name, "Fire", null, 10001, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             case 4:
-                charPlayer = new pChar(name, "Water", null, null, 1000, 1000, 1000, 1000, 1000, password);
+                charPlayer = new pChar(name, "Water", null, 10001, 1000, 1000, 1000, 1000, 1000, password);
                 break;
             default:
                 System.out.println("Invalid choice. Setting default domain to Air.");
-                charPlayer = new pChar(name, "Air", null, null, 1000, 1000, 1000, 1000, 1000, password);
+                charPlayer = new pChar(name, "Air", null, 10001, 1000, 1000, 1000, 1000, 1000, password);
                 break;
         }
 
@@ -177,20 +177,20 @@ public class pChar {
         scanner.nextLine(); // consume the newline character left by nextInt()
         switch (homeChoice) {
             case 1:
-                charPlayer.setHome("Forest");
+                charPlayer.setHome(10001);
                 break;
             case 2:
-                charPlayer.setHome("Mountains");
+                charPlayer.setHome(10001);
                 break;
             case 3:
-                charPlayer.setHome("Plains");
+                charPlayer.setHome(10001);
                 break;
             case 4:
-                charPlayer.setHome("Coast");
+                charPlayer.setHome(10001);
                 break;
             default:
                 System.out.println("Invalid choice. Setting default home zone to Forest.");
-                charPlayer.setHome("Forest");
+                charPlayer.setHome(10001);
                 break;
         }
 
@@ -209,7 +209,6 @@ public class pChar {
         } catch (IOException e) {
             System.out.println("Error saving character file.");
         }
-        System.out.println
 
         return charPlayer;
     }
