@@ -1,16 +1,14 @@
-package perfection;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.ArrayList;
-//import org.apache.commons.io.FileUtiles;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 
 public class MudZone {
-    private String name;
-    private List<MudRoom> rooms;
+    private final String name;
+    private final List<MudRoom> rooms;
 
     public MudZone(String name) {
         this.name = name;
@@ -25,29 +23,24 @@ public class MudZone {
         return rooms;
     }
 
-    public void addRoom(MudRoom room) {
-        rooms.add(room);
-    }
-
-    public MudRoom getStartingRoom() {
-        return rooms.get(0);
-    }
-    public MudRoom getRoomById(int id) {
-        for (MudRoom room : rooms) {
-            if (room.getNumber() == id) {
-                return room;
+    public void loadRooms(String directoryPath) {
+        try {
+            String zoneFilePath = directoryPath + name + ".zn";
+            List<String> lines = FileUtils.readLines(new File(zoneFilePath), StandardCharsets.UTF_8);
+            for (String line : lines) {
+                String[] parts = line.split("\\|");
+                if (parts.length != 3) {
+                    System.err.println("Invalid line format: " + line);
+                    continue;
+                }
+                int roomNum = Integer.parseInt(parts[0]);
+                String roomName = parts[1];
+                String roomDesc = parts[2];
+                MudRoom room = new MudRoom(roomNum, roomName, roomDesc);
+                rooms.add(room);
             }
+        } catch (IOException e) {
+            System.err.println("Error loading rooms for zone " + name + ": " + e.getMessage());
         }
-        return null;
     }
-
-    public MudRoom findRoom(String name) {
-        for (MudRoom room : rooms) {
-            if (room.getName().equalsIgnoreCase(name)) {
-                return room;
-            }
-        }
-        return null;
-    }
-
 }

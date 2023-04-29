@@ -73,26 +73,14 @@ public class MudWorld {
             List<String> zoneNames = FileUtils.readLines(new File(directoryPath + "map.lst"), StandardCharsets.UTF_8);
             for (String zoneName : zoneNames) {
                 MudZone zone = new MudZone(zoneName);
-                String zoneFilePath = directoryPath + zoneName + ".zn";
-                List<String> lines = FileUtils.readLines(new File(zoneFilePath), StandardCharsets.UTF_8);
-                for (String line : lines) {
-                    String[] parts = line.split("\\|");
-                    if (parts.length != 3) {
-                        System.err.println("Invalid line format: " + line);
-                        continue;
-                    }
-                    int roomNum = Integer.parseInt(parts[0]);
-                    String roomName = parts[1];
-                    String roomDesc = parts[2];
-                    MudRoom room = new MudRoom(roomNum, roomName, roomDesc);
-                    zone.addRoom(room);
-                }
+                zone.loadRooms(directoryPath);
                 zones.add(zone);
             }
         } catch (IOException e) {
             System.err.println("Error loading zones: " + e.getMessage());
         }
     }
+
 
     public pChar loadpChar(String name, String password) {
         if (!checkPassword(name, password)) {
@@ -197,7 +185,7 @@ public class MudWorld {
         scoreBuilder.append("Domain: ").append(playerChar.getDomain()).append("\n");
         scoreBuilder.append("Specialization: ").append(playerChar.getSpecialization()).append("\n");
         scoreBuilder.append("Home: ").append(playerChar.getHome()).append("\n");
-        scoreBuilder.append("HP: ").append(playerChar.getHp()).append("/")://.append(playerChar.getMaxHealth()).append("\n");
+        scoreBuilder.append("HP: ").append(playerChar.getHp()).append("/");//.append(playerChar.getMaxHealth()).append("\n");
         scoreBuilder.append("Energy: ").append(playerChar.getEnergy()).append("/").append(playerChar.getMaxMana()).append("\n");
 //        scoreBuilder.append("Experience: ").append(playerChar.getCurrentExp()).append("/").append(playerChar.getNextLevelExp()).append("\n");
 //        scoreBuilder.append("Gold: ").append(playerChar.getGold()).append("\n");
