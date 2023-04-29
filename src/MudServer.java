@@ -90,6 +90,7 @@ public class MudServer {
     }
 */
 public perfection.pChar loadpChar(String name, String password) {
+    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
     perfection.pChar character = characters.get(name);
     if (character == null) {
         // If character doesn't exist, create a new one

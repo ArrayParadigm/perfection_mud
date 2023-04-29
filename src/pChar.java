@@ -110,6 +110,10 @@ public class pChar {
     public void setLf(int lf) {
         this.lf = lf;
     }
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+
 
     public pChar createpChar(String name) {
         Scanner scanner = new Scanner(System.in);
