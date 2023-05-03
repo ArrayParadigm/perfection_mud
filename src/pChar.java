@@ -114,6 +114,7 @@ public class pChar {
         this.lf = lf;
     }
     public boolean checkPassword(String password) {
+
         return this.password.equals(password);
     }
     private static String readInput(BufferedReader in, PrintWriter out, String prompt) {
@@ -154,8 +155,9 @@ public class pChar {
 
 //        String password = scanner.nextLine();
         charPlayer.setPassword(password);
-
+        out.println("Your current password is: " + charPlayer.password);
         // Prompt user to set a domain
+
         out.println("Choose a domain for your character:");
         out.println("1. Air\n2. Earth\n3. Fire\n4. Water");
         int domainChoice = scanner.nextInt();
