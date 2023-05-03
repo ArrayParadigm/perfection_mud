@@ -30,7 +30,7 @@ public class MudServer {
             if (character == null) {
                 // If character doesn't exist, create a new one
                 pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
-                character = pchar.createpChar(name);
+                character = pchar.createpChar(name, clientSocket);
                 characters.put(name, character);
             } else if (!character.checkPassword(password)) {
                 // If password is incorrect, prompt for password again

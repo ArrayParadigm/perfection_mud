@@ -1,6 +1,7 @@
 package perfection;
 
 
+import java.net.Socket;
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -115,22 +116,31 @@ public class pChar {
     }
 
 
-    public pChar createpChar(String name, Client client) {
+    public pChar createpChar(String name, Socket clientSocket) {
         Scanner scanner = new Scanner(System.in);
+        PrintWriter out = null;
         pChar charPlayer = new pChar(name, "", "", 10001, 1000, 1000, 1000, 1000, 1000, ""); // create a new pChar with default values
         charPlayer.setName(name);
         charPlayer.setHp(1000);
         charPlayer.setEnergy(1000);
         charPlayer.setLf(1000);
 
+        try {
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException e) {
+            System.err.println("Error getting client input/output stream: " + e.getMessage());
+            return null;
+        }
+
         // Prompt user to set a password
-        System.out.println("Enter a password for your character:");
+        out.println("Enter a password for your character:");
         String password = scanner.nextLine();
         charPlayer.setPassword(password);
 
         // Prompt user to set a domain
-        System.out.println("Choose a domain for your character:");
-        System.out.println("1. Air\n2. Earth\n3. Fire\n4. Water");
+        out.println("Choose a domain for your character:");
+        out.println("1. Air\n2. Earth\n3. Fire\n4. Water");
         int domainChoice = scanner.nextInt();
         switch (domainChoice) {
             case 1:
@@ -152,8 +162,8 @@ public class pChar {
         }
 
         // Prompt user to set a specialization
-        System.out.println("Choose a specialization for your character:");
-        System.out.println("1. Warrior\n2. Mage\n3. Rogue\n4. Priest");
+       out.println("Choose a specialization for your character:");
+        out.println("1. Warrior\n2. Mage\n3. Rogue\n4. Priest");
         int specializationChoice = scanner.nextInt();
         switch (specializationChoice) {
             case 1:
@@ -169,14 +179,14 @@ public class pChar {
                 charPlayer.setSpecialization("Priest");
                 break;
             default:
-                System.out.println("Invalid choice. Setting default specialization to Warrior.");
+                out.println("Invalid choice. Setting default specialization to Warrior.");
                 charPlayer.setSpecialization("Warrior");
                 break;
         }
 
         // Prompt user to set a home zone
-        System.out.println("Choose a home zone for your character:");
-        System.out.println("1. Forest\n2. Mountains\n3. Plains\n4. Coast");
+        out.println("Choose a home zone for your character:");
+        out.println("1. Forest\n2. Mountains\n3. Plains\n4. Coast");
         int homeChoice = scanner.nextInt();
         scanner.nextLine(); // consume the newline character left by nextInt()
         switch (homeChoice) {
@@ -200,14 +210,14 @@ public class pChar {
 
         // Save the new character to a file
         try {
-            FileWriter writer = new PrintWriter(name + ".character", "UTF-8");
-            writer.write("Name: " + charPlayer.getName());
-            writer.write("Password: " + charPlayer.getPassword());
-            writer.write("Domain: " + charPlayer.getDomain());
-            writer.write("Specialization: " + charPlayer.getSpecialization());
-            writer.write("Hp: " + charPlayer.getHp());
-            writer.write("Energy: " + charPlayer.getEnergy());
-            writer.write("Lf: " + charPlayer.getLf());
+            PrintWriter writer = new PrintWriter(name + ".character", "UTF-8");
+            writer.println("Name: " + charPlayer.getName());
+            writer.println("Password: " + charPlayer.getPassword());
+            writer.println("Domain: " + charPlayer.getDomain());
+            writer.println("Specialization: " + charPlayer.getSpecialization());
+            writer.println("Hp: " + charPlayer.getHp());
+            writer.println("Energy: " + charPlayer.getEnergy());
+            writer.println("Lf: " + charPlayer.getLf());
             // Add other fields as needed
             writer.close();
         } catch (IOException e) {
