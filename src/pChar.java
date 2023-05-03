@@ -1,6 +1,8 @@
 package perfection;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Scanner;
 import java.io.PrintWriter;
@@ -114,10 +116,22 @@ public class pChar {
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
+    private static String readInput(BufferedReader in, PrintWriter out, String prompt) {
+        out.println(prompt);
+        String input = null;
+        try {
+            input = in.readLine();
+        } catch (IOException e) {
+            System.err.println("Error reading client input: " + e.getMessage());
+        }
+        return input;
+    }
 
 
     public pChar createpChar(String name, Socket clientSocket) {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in); // Unused.
+        Scanner scanner = null;
+        BufferedReader in = null;
         PrintWriter out = null;
         pChar charPlayer = new pChar(name, "", "", 10001, 1000, 1000, 1000, 1000, 1000, ""); // create a new pChar with default values
         charPlayer.setName(name);
@@ -128,14 +142,17 @@ public class pChar {
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            scanner = new Scanner(clientSocket.getInputStream());
         } catch (IOException e) {
             System.err.println("Error getting client input/output stream: " + e.getMessage());
             return null;
         }
 
         // Prompt user to set a password
-        out.println("Enter a password for your character:");
-        String password = scanner.nextLine();
+//        out.println("Enter a password for your character:");
+        String password = readInput(in, out, "Enter a password for your character:");
+
+//        String password = scanner.nextLine();
         charPlayer.setPassword(password);
 
         // Prompt user to set a domain
