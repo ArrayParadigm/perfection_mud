@@ -115,7 +115,7 @@ public class pChar {
     }
 
 
-    public pChar createpChar(String name) {
+    public pChar createpChar(String name, Client client) {
         Scanner scanner = new Scanner(System.in);
         pChar charPlayer = new pChar(name, "", "", 10001, 1000, 1000, 1000, 1000, 1000, ""); // create a new pChar with default values
         charPlayer.setName(name);
@@ -200,14 +200,14 @@ public class pChar {
 
         // Save the new character to a file
         try {
-            PrintWriter writer = new PrintWriter(name + ".character", "UTF-8");
-            writer.println("Name: " + charPlayer.getName());
-            writer.println("Password: " + charPlayer.getPassword());
-            writer.println("Domain: " + charPlayer.getDomain());
-            writer.println("Specialization: " + charPlayer.getSpecialization());
-            writer.println("Hp: " + charPlayer.getHp());
-            writer.println("Energy: " + charPlayer.getEnergy());
-            writer.println("Lf: " + charPlayer.getLf());
+            FileWriter writer = new PrintWriter(name + ".character", "UTF-8");
+            writer.write("Name: " + charPlayer.getName());
+            writer.write("Password: " + charPlayer.getPassword());
+            writer.write("Domain: " + charPlayer.getDomain());
+            writer.write("Specialization: " + charPlayer.getSpecialization());
+            writer.write("Hp: " + charPlayer.getHp());
+            writer.write("Energy: " + charPlayer.getEnergy());
+            writer.write("Lf: " + charPlayer.getLf());
             // Add other fields as needed
             writer.close();
         } catch (IOException e) {
