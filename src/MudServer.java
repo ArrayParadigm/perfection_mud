@@ -28,43 +28,31 @@ public class MudServer {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             pChar character = characters.get(name);
             if (character == null) {
-                // If character doesn't exist, check if the character file exists
-                File charFile = new File(name + ".character");
-                if (!charFile.exists()) {
-                    // If character file doesn't exist, create a new character
-                    pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
-                    character = pchar.createpChar(name, clientSocket);
-                    characters.put(name, character);
-                } else {
-                    // If character file exists, read password from file and check if it matches
-                    try (Scanner fileScanner = new Scanner(charFile)) {
-                        String filePassword = fileScanner.nextLine().trim();
-                        if (password.equals(filePassword)) {
-                            character = pChar.loadpCharFromFile(name);
-                            characters.put(name, character);
-                        } else {
+                // If character doesn't exist, create a new one
+                pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
+                character = pchar.createpChar(name, clientSocket);
+                characters.put(name, character);
+            } else {
+                // Check if password is correct by reading from character file
+                File file = new File(name + ".character");
+                if (file.exists()) {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                        String storedPassword = reader.readLine();
+                        if (!character.checkPassword(password)) {
                             out.println("Incorrect password! Please try again.");
-                            try {
-                                clientSocket.close();
-                            } catch (IOException e) {
-                                System.err.println("Error closing client socket: " + e.getMessage());
-                            }
-                            return null; // Return null to indicate that the connection has been closed
+                            clientSocket.close();
+                            return null;
                         }
-                    } catch (FileNotFoundException e) {
+                    } catch (IOException e) {
                         System.err.println("Error reading character file: " + e.getMessage());
-                        return null; // Return null to indicate that an error occurred
+                        clientSocket.close();
+                        return null;
                     }
-                }
-            } else if (!character.checkPassword(password)) {
-                // If password is incorrect, prompt for password again
-                out.println("Incorrect password! Please try again.");
-                try {
+                } else {
+                    out.println("Character file not found!");
                     clientSocket.close();
-                } catch (IOException e) {
-                    System.err.println("Error closing client socket: " + e.getMessage());
+                    return null;
                 }
-                return null; // Return null to indicate that the connection has been closed
             }
             return character;
         } catch (IOException e) {
@@ -72,6 +60,7 @@ public class MudServer {
             return null; // Return null to indicate that an error occurred
         }
     }
+
     public void run() {
         while (true) {
             try {

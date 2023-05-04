@@ -1,12 +1,9 @@
 package perfection;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
-import java.io.PrintWriter;
-import java.io.IOException;
 
 public class pChar {
     private String name;
@@ -234,6 +231,8 @@ public class pChar {
             writer.println("Password: " + charPlayer.getPassword());
             writer.println("Domain: " + charPlayer.getDomain());
             writer.println("Specialization: " + charPlayer.getSpecialization());
+            writer.println("Max Hp: " + charPlayer.getMaxHp());
+            writer.println("Max Energy: " + charPlayer.getMaxEnergy());
             writer.println("Hp: " + charPlayer.getHp());
             writer.println("Energy: " + charPlayer.getEnergy());
             writer.println("Lf: " + charPlayer.getLf());
@@ -245,5 +244,20 @@ public class pChar {
 
         return charPlayer;
     }
+    public void loadFromFile(File file) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        // Skip the first line (password)
+        reader.readLine();
+        setName(reader.readLine());
+        setDomain(reader.readLine());
+        setSpecialization(reader.readLine());
+        setHp(Integer.parseInt(reader.readLine()));
+        setEnergy(Integer.parseInt(reader.readLine()));
+        setLf(Integer.parseInt(reader.readLine()));
+        setMaxEnergy(Integer.parseInt(reader.readLine()));
+        setMaxHp(Integer.parseInt(reader.readLine()));
+        reader.close();
+    }
+
 
 }
