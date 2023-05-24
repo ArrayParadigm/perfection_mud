@@ -1,3 +1,10 @@
+/*
+ArrayParadigm/Kevin Quinn
+04/27/2023 10:00AM CST
+Updated: 04/27/2023 10:00AM CST
+Mudroom Class
+*/
+
 package perfection;
 
 public class MudRoom {

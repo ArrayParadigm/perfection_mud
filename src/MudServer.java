@@ -1,3 +1,10 @@
+/*
+ArrayParadigm/Kevin Quinn
+04/27/2023 10:00AM CST
+Updated: 04/27/2023 10:00AM CST
+MudServer Class
+*/
+
 package perfection;
 
 import java.io.*;
@@ -8,7 +15,7 @@ import java.util.Map;
 
 public class MudServer {
     private ServerSocket serverSocket;
-    private perfection.MudWorld mudWorld;
+    private MudWorld mudWorld;
     Map<String, pChar> characters;
 
     public MudServer(int port, MudWorld mudWorld) {
