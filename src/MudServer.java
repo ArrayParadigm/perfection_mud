@@ -9,20 +9,19 @@ package perfection;
 
 import java.io.*;
 import java.net.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MudServer {
     private ServerSocket serverSocket;
-    private perfection.MudWorld mudWorld;
-    Map<String, pChar> characters;
+    private MudWorld mudWorld;
+    private Map<String, pChar> characters;
 
     public MudServer(int port, MudWorld mudWorld) {
         try {
             serverSocket = new ServerSocket(port);
             this.mudWorld = mudWorld;
-            characters = mudWorld.getCharacters(); // Moved this line here
+            characters = mudWorld.getCharacters();
             System.out.println("MUD server started on port " + port);
         } catch (IOException e) {
             System.err.println("Could not start MUD server on port " + port);
@@ -36,11 +35,13 @@ public class MudServer {
             pChar character = characters.get(name);
             if (character == null) {
                 // If character doesn't exist, create a new one
-                pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
-                character = pchar.createpChar(name, clientSocket);
-                characters.put(name, character);
+                String newPassword = askNewPassword(out);
+                pChar newCharacter = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, newPassword);
+                characters.put(name, newCharacter);
+                savePlayer(newCharacter);
+                return newCharacter;
             } else {
-                // Check if password is correct by reading from character file
+                // Check if password is correct by reading from the character file
                 File file = new File(name + ".character");
                 if (file.exists()) {
                     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -66,6 +67,25 @@ public class MudServer {
             System.err.println("Error handling client: " + e.getMessage());
             return null; // Return null to indicate that an error occurred
         }
+    }
+
+    private String askNewPassword(PrintWriter writer) {
+        writer.println("Welcome! Since this is your first time here, please choose a password for your character:");
+        writer.flush();
+
+        // Prompt for password and read from input
+        // You can implement this based on your existing code structure
+        // Example: Use BufferedReader to read password from clientSocket.getInputStream()
+
+        // Return the entered password
+        // Modify this according to your implementation
+        return "newPassword";
+    }
+
+    private void savePlayer(pChar player) {
+        // Save the player data to a player file
+        // You can implement the logic for saving player data here
+        // Example: Use a file writer to save the player data to a file
     }
 
     public void run() {
