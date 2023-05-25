@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class MudServer {
     private ServerSocket serverSocket;
-    private MudWorld mudWorld;
+    private perfection.MudWorld mudWorld;
     Map<String, pChar> characters;
 
     public MudServer(int port, MudWorld mudWorld) {
