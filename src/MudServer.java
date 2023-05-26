@@ -32,14 +32,18 @@ public class MudServer {
 
     public pChar loadpChar(String name, String password, Socket clientSocket) {
         try {
+            System.out.println("Loading character: " + name);
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             pChar character = characters.get(name);
-            if (character == null) {
+            System.out.println("Character name is " + character);
+            if (name == null) {
+                System.out.println("Character not found. Creating a new one.");
                 // If character doesn't exist, create a new one
                 pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
                 character = pchar.createpChar(name, clientSocket);
                 characters.put(name, character);
             } else {
+                System.out.println("Character found. Checking password");
                 // Check if password is correct by reading from character file
                 File file = new File(name + ".character");
                 if (file.exists()) {
