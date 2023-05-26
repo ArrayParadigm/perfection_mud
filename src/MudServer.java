@@ -95,6 +95,9 @@ public class MudServer {
         MudServer server = new MudServer(port, mudWorld, characters); // Pass the characters map
         server.run();
     }
+    public void setCharacters(Map<String, pChar> characters) {
+        this.characters = characters;
+    }
 
 }
 
@@ -170,7 +173,5 @@ class MudClientHandler implements Runnable {
     public void sendMessage(String message) {
         out.println(message);
     }
-    public void setCharacters(Map<String, pChar> characters) {
-        this.characters = characters;
-    }
+
 }
