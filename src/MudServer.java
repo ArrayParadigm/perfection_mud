@@ -18,7 +18,6 @@ public class MudServer {
     private MudWorld mudWorld;
     private Map<String, pChar> characters;
 
-    //    public MudServer(int port, MudWorld mudWorld) {
     public MudServer(int port, MudWorld mudWorld) {
         try {
             serverSocket = new ServerSocket(port);
