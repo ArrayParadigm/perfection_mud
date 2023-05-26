@@ -15,21 +15,21 @@ import java.util.Map;
 
 public class MudServer {
     private ServerSocket serverSocket;
-    private perfection.MudWorld mudWorld;
-    Map<String, pChar> characters;
+    private MudWorld mudWorld;
+    private Map<String, pChar> characters;
 
+    //    public MudServer(int port, MudWorld mudWorld) {
     public MudServer(int port, MudWorld mudWorld) {
         try {
             serverSocket = new ServerSocket(port);
             this.mudWorld = mudWorld;
-            characters = mudWorld.getCharacters(); // Moved this line here
+            this.characters = new HashMap<>(); // Create an empty map
             System.out.println("MUD server started on port " + port);
         } catch (IOException e) {
             System.err.println("Could not start MUD server on port " + port);
             System.exit(1);
         }
     }
-
     public pChar loadpChar(String name, String password, Socket clientSocket) {
         try {
             System.out.println("Loading character: " + name);
@@ -167,5 +167,8 @@ class MudClientHandler implements Runnable {
 
     public void sendMessage(String message) {
         out.println(message);
+    }
+    public void setCharacters(Map<String, pChar> characters) {
+        this.characters = characters;
     }
 }
