@@ -18,17 +18,18 @@ public class MudServer {
     private MudWorld mudWorld;
     private Map<String, pChar> characters;
 
-    public MudServer(int port, MudWorld mudWorld) {
+    public MudServer(int port, MudWorld mudWorld, Map<String, pChar> characters) {
         try {
             serverSocket = new ServerSocket(port);
             this.mudWorld = mudWorld;
-            this.characters = new HashMap<>(); // Create an empty map
+            this.characters = characters; // Initialize with provided map
             System.out.println("MUD server started on port " + port);
         } catch (IOException e) {
             System.err.println("Could not start MUD server on port " + port);
             System.exit(1);
         }
     }
+
     public pChar loadpChar(String name, String password, Socket clientSocket) {
         try {
             System.out.println("Loading character: " + name);
@@ -90,9 +91,11 @@ public class MudServer {
     public static void main(String[] args) {
         int port = Integer.parseInt(args[0]);
         MudWorld mudWorld = new MudWorld();
-        MudServer server = new MudServer(port, mudWorld);
+        Map<String, pChar> characters = mudWorld.getCharacters(); // Retrieve characters map
+        MudServer server = new MudServer(port, mudWorld, characters); // Pass the characters map
         server.run();
     }
+
 }
 
 class MudClientHandler implements Runnable {

@@ -94,56 +94,6 @@ public class MudWorld {
         }
     }
 
-/*
-    public pChar loadpChar(String name, String password, perfection.MudClientHandler sender) {
-        pChar player = characters.get(name);
-        if (player == null) {
-            // If player doesn't exist, create a new one
-            player = createpChar(name, password,"nerd");
-            //player = new pChar(name);
-            player.createpChar(password); // call the createpChar() method on the new instance of pChar
-
-        } else if (!player.checkPassword(password)) {
-            // If password is incorrect, prompt for password again
-            out.println("Incorrect password! Please try again.");
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                System.err.println("Error closing client socket: " + e.getMessage());
-            }
-            return null; // Return null to indicate that the connection has been closed
-        }
-
-        return player;
-    }
-*/
-/*
-    public pChar createpChar(String name, String domain, String specialization, int home, int hp, int maxHp, int energy, int maxEnergy, int lf, String pw) {
-        pChar newChar = new pChar(name, domain, specialization, 10001, 1000, 1000, 1000, 1000, 1, pw);
-        characters.put(name, newChar);
-        return newChar;
-    }
-
-*/
-    /*
-    public pChar createpChar(String name, String password, String description, int strength, int dexterity, int intelligence, int wisdom, int charisma, int maxHitPoints, String startingLocation) {
-    pChar newChar = new pChar(name, password, description, strength, dexterity, intelligence, wisdom, charisma, maxHitPoints, startingLocation);
-    characters.put(name, newChar);
-    return newChar;
-}
-
-    public pChar createpChar(String name, String domain, String specialization, String home) {
-        pChar pChar = new pChar();
-        pChar.setName(name);
-        pChar.setDomain(domain);
-        pChar.setSpecialization(specialization);
-        pChar.setHome(home);
-        pChar.setHp(1000);
-        pChar.setEnergy(1000);
-        pChar.setLf(1000);
-        characters.put(name, pChar);
-    }
-*/
     private boolean checkPassword(String name, String password) {
         // logic to check the password goes here
         return true;
@@ -240,6 +190,13 @@ public class MudWorld {
         return scoreBuilder.toString(); */
         return null;
     }
+
+    // In MudWorld class
+/*
+    public Map<String, pChar> getCharacters() {
+        return characters;
+    }
+*/
 
 
 }
