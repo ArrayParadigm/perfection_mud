@@ -34,7 +34,10 @@ public class MudServer {
         try {
             System.out.println("Loading character: " + name);
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            pChar character = characters.get(name);
+//            pChar character = characters.get(name);
+            pChar character = mudWorld.getCharacters().get(name);
+//            pChar character = mudWorld.characters.get(name);
+
             System.out.println("Character name is " + character);
             if (name == null) {
                 System.out.println("Character not found. Creating a new one.");
