@@ -37,9 +37,9 @@ public class MudServer {
 //            pChar character = characters.get(name);
             pChar character = mudWorld.getCharacters().get(name);
 //            pChar character = mudWorld.characters.get(name);
-
+//            character = new pChar(name, "1", "1", 1, 1, 1, 1, 1, 1, password);
             System.out.println("Character name is " + character);
-            if (name == null) {
+            if (character == null) {
                 System.out.println("Character not found. Creating a new one.");
                 // If character doesn't exist, create a new one
                 pChar pchar = new pChar(name, "defaultDomain", "defaultSpecialization", 10001, 100, 100, 100, 100, 100, password);
@@ -173,5 +173,4 @@ class MudClientHandler implements Runnable {
     public void sendMessage(String message) {
         out.println(message);
     }
-
 }

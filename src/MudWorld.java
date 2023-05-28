@@ -59,11 +59,11 @@ public class MudWorld {
         }
         return null;
     }
-
+/*
     public Map<String, pChar> getCharacters() {
         return characters;
     }
-
+*/
     public MudRoom getStartingRoom() {
         // Just returns the first room of the first zone
         MudZone startingZone = zones.get(0);
@@ -192,11 +192,12 @@ public class MudWorld {
     }
 
     // In MudWorld class
-/*
+
     public Map<String, pChar> getCharacters() {
+        System.out.println("Characters stuff: " + characters);
         return characters;
     }
-*/
+
 
 
 }
